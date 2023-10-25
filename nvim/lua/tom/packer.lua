@@ -14,7 +14,6 @@ return require('packer').startup(function(use)
   }
 
   use 'Mofiqul/dracula.nvim'
-  use { "catppuccin/nvim", as = "catppuccin" }
   use 'nvim-tree/nvim-web-devicons'
   use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
   use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
@@ -27,6 +26,12 @@ return require('packer').startup(function(use)
     config = function()
       require('Comment').setup()
     end
+  }
+
+  use { "catppuccin/nvim", as = "catppuccin" }
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
 
   use 'williamboman/mason.nvim'
@@ -62,4 +67,46 @@ return require('packer').startup(function(use)
     },
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
+
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup {
+        -- your configuration comes hee
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+
+  -- DATABASE DEVELOPMENT
+  use {
+    "tpope/vim-dadbod",
+    opt = true,
+    requires = {
+      "kristijanhusak/vim-dadbod-ui",
+      "kristijanhusak/vim-dadbod-completion",
+    },
+    config = function()
+      require("config.dadbod").setup()
+    end,
+    cmd = { "DBUIToggle", "DBUI", "DBUIAddConnection", "DBUIFindBuffer", "DBUIRenameBuffer", "DBUILastQueryInfo" },
+  }
+
+  use {
+      "nanotee/sqls.nvim",
+      module = { "sqls" },
+      cmd = {
+        "SqlsExecuteQuery",
+        "SqlsExecuteQueryVertical",
+        "SqlsShowDatabases",
+        "SqlsShowSchemas",
+        "SqlsShowConnections",
+        "SqlsSwitchDatabase",
+        "SqlsSwitchConnection",
+      },
+  }
+
 end)
