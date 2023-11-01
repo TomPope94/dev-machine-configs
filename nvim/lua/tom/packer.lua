@@ -14,8 +14,9 @@ return require('packer').startup(function(use)
   }
 
   use 'Mofiqul/dracula.nvim'
-  use 'nvim-tree/nvim-web-devicons'
-  use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
+  use 'nvim-tree/nvim-web-devicons' -- OPTIONAL: for file icons
+  use 'lewis6991/gitsigns.nvim' -- OPTIONAL: for git status
+  use 'romgrk/barbar.nvim'
   use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
