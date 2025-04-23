@@ -10,21 +10,46 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {
-    'tsserver',
+    'ts_ls',
     'eslint',
     'html',
-    'cssls'
+    'cssls',
+    'pyright',
+    'pylsp'
   },
   handlers = {
     function(server)
       lspconfig[server].setup({})
     end,
-    ['tsserver'] = function()
-      lspconfig.tsserver.setup({
+    ['ts_ls'] = function()
+      lspconfig.ts_ls.setup({
         settings = {
           completions = {
             completeFunctionCalls = true
           }
+        }
+      })
+    end,
+    ['pylsp'] = function()
+      lspconfig.pylsp.setup({
+        settings = {
+          pylsp = {
+            plugins = {
+              pycodestyle = { enabled = false },
+              flake8 = {
+                enabled = true,
+                maxLineLength = 150
+              },
+              pylint = { enabled = false }
+            }
+          }
+        }
+      })
+    end,
+    ['eslint'] = function()
+      lspconfig.eslint.setup({
+        settings = {
+          format = { enable = true }
         }
       })
     end
